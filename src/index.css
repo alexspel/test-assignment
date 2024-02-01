@@ -8,3 +8,21 @@ a {
     color: #5558FA;
     text-decoration: none;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px
+}
+
+.button {
+    font-weight: 400;
+    font-size: 12px;
+
+    &[type="submit"] {
+        background: #5558FA;
+        &:hover {
+            background: rgba(85, 88, 250, 0.8);
+        }
+    }
+}

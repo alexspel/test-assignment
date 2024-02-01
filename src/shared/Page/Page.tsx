@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 const Page = ({ className, children }: PageProps) => (
-    <div className={clsx(cls.Page, className)}>{children}</div>
+    <main className={clsx(cls.Page, className)}>{children}</main>
 );
 
 export default Page;

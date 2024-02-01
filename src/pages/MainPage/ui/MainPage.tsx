@@ -1,14 +1,15 @@
 import { user } from '../../../app/data';
 import Divider from '../../../shared/Divider/Divider';
 import Page from '../../../shared/Page/Page';
+import { IntroForm } from '../../../widgets/IntoForm';
 import { Userbar } from '../../../widgets/Userbar';
-import cls from './MainPage.module.scss';
 
 const MainPage = () => {
     return (
-        <Page className={cls.MainPage}>
+        <Page>
             <Userbar user={user} />
             <Divider />
+            <IntroForm />
         </Page>
     );
 };

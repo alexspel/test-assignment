@@ -15,8 +15,13 @@ function Modal(props: ModalProps) {
         return null;
     }
     return (
-        <div className={cls.Modal}>
-            <div className={cls.wrapper}>
+        <div className={cls.Modal} onClick={onClose}>
+            <div
+                className={cls.wrapper}
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+            >
                 <ActionIcon variant="transparent" className={cls.closeButton} onClick={onClose}>
                     <IconX className={cls.closeIcon} />
                 </ActionIcon>

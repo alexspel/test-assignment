@@ -62,7 +62,7 @@ function SecondStepForm(props: SecondStepFormProps) {
                     id="button-add"
                     onClick={onAddAdvantage}
                     variant="outline"
-                    className="button primary"
+                    className="button"
                 >
                     +
                 </Button>

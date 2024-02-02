@@ -10,8 +10,8 @@ export type FirstStepFormValues = {
 };
 
 interface FirstStepFormProps {
-    onBack: () => void;
-    onNext: (values: Partial<FirstStepFormValues>) => void;
+    onBack?: () => void;
+    onNext?: (values: Partial<FirstStepFormValues>) => void;
     data: Partial<FirstStepFormValues>;
 }
 
@@ -21,6 +21,7 @@ function FirstStepForm(props: FirstStepFormProps) {
     const form = useForm<Partial<FirstStepFormValues>>({
         initialValues: data,
     });
+
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
         onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
@@ -38,7 +39,7 @@ function FirstStepForm(props: FirstStepFormProps) {
     ));
 
     return (
-        <form className="form" onSubmit={form.onSubmit((values) => onNext(values))}>
+        <form className="form" onSubmit={form.onSubmit((values) => onNext?.(values))}>
             <TextInput
                 id="field-nickname"
                 label="Nickname"
@@ -81,7 +82,12 @@ function FirstStepForm(props: FirstStepFormProps) {
                 </Combobox.Dropdown>
             </Combobox>
             <Group justify="space-between">
-                <Button id="button-back" onClick={onBack} variant="outline" className="button">
+                <Button
+                    id="button-back"
+                    onClick={() => onBack?.()}
+                    variant="outline"
+                    className="button"
+                >
                     Назад
                 </Button>
                 <Button id="button-next" type="submit" variant="filled" className="button primary">

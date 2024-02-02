@@ -1,112 +1,63 @@
-import { useCallback, useMemo, useState } from 'react';
+/* eslint-disable prettier/prettier */
+import { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../../app/providers/AppRouter/config';
 import { FirstStepForm } from '../../../../widgets/FirstStepForm';
-import { FirstStepFormValues } from '../../../../widgets/FirstStepForm/ui/FirstStepForm';
 import { SecondStepForm } from '../../../../widgets/SecondStepForm';
-import { SecondStepFormValues } from '../../../../widgets/SecondStepForm/ui/SecondStepForm';
 import { ThirdStepForm } from '../../../../widgets/ThirdStepForm';
-import { ThirdStepFormValues } from '../../../../widgets/ThirdStepForm/ui/ThirdStepForm';
-
-enum Steps {
-    Step1 = 'step1',
-    Step2 = 'step2',
-    Step3 = 'step3',
-    Finish = 'finish',
-}
-
-type FormValues = FirstStepFormValues | SecondStepFormValues | ThirdStepFormValues;
-type AllValues = Partial<FirstStepFormValues & SecondStepFormValues & ThirdStepFormValues>;
+import { getNextStep, getPrevStep } from '../../lib';
+import { getData, getStep } from '../../model/selectors';
+import { createPageActions } from '../../model/slices/CreatePageSlice';
+import { FormValues } from '../../model/types/FormValues';
 
 function CreateForm() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [step, setStep] = useState<Steps>(Steps.Step1);
-    const [data, setData] = useState<AllValues>({});
+    const data = useSelector(getData);
+    const currentStep = useSelector(getStep);
 
-    const updateData = useCallback(
-        (values: Partial<FormValues>) => {
-            setData((prev) => ({
-                ...prev,
-                ...values,
-            }));
-        },
-        [setData],
-    );
+    const onFinish = useCallback(() => {
+        dispatch(createPageActions.setResult('error'));
+        dispatch(createPageActions.setShowResult(true));
+        // dispatch(createPageActions.setStep('step1'));
+        // navigate(RoutePath.main);
+    }, [dispatch, navigate]);
 
     const onBack = useCallback(() => {
-        // updateData(values);
-        switch (step) {
-            case Steps.Step1:
-                navigate(RoutePath.main);
-                break;
-            case Steps.Step2:
-                setStep(Steps.Step1);
-                break;
-            case Steps.Step3:
-                setStep(Steps.Step2);
-                break;
+        const prevStep = getPrevStep(currentStep);
+        if(prevStep) {
+            dispatch(createPageActions.setStep(prevStep));
+            return;
         }
-    }, [step, navigate]);
+        navigate(RoutePath.main);
+    }, [currentStep, dispatch, navigate]);
 
     const onNext = useCallback(
         (values: Partial<FormValues>) => {
-            updateData(values);
-            switch (step) {
-                case Steps.Step1:
-                    setStep(Steps.Step2);
-                    break;
-                case Steps.Step2:
-                    setStep(Steps.Step3);
-                    break;
-                case Steps.Step3:
-                    setStep(Steps.Finish);
-                    break;
+            dispatch(createPageActions.updateData(values));
+            const nextStep = getNextStep(currentStep);
+            if(nextStep) {
+                dispatch(createPageActions.setStep(nextStep));
+                return;
             }
+            onFinish();
         },
-        [step, updateData],
+        [currentStep, dispatch, navigate, onFinish],
     );
 
     const stepForm = useMemo(() => {
-        switch (step) {
-            case Steps.Step1:
-                return (
-                    <FirstStepForm
-                        onBack={onBack}
-                        onNext={onNext}
-                        data={{
-                            nickname: data?.nickname,
-                            name: data?.name,
-                            surname: data?.surname,
-                            sex: data?.sex,
-                        }}
-                    />
-                );
-            case Steps.Step2:
-                return (
-                    <SecondStepForm
-                        onBack={onBack}
-                        onNext={onNext}
-                        data={{
-                            advantages: data?.advantages,
-                            checkbox: data?.checkbox,
-                            radio: data?.radio,
-                        }}
-                    />
-                );
-            case Steps.Step3:
-                return (
-                    <ThirdStepForm
-                        onBack={onBack}
-                        onNext={onNext}
-                        data={{
-                            about: data?.about,
-                        }}
-                    />
-                );
+        switch(currentStep) {
+            case 'step1':
+                return <FirstStepForm onBack={onBack} onNext={onNext} data={data} />;
+            case 'step2':
+                return <SecondStepForm onBack={onBack} onNext={onNext} data={data} />;
+            case 'step3':
+                return <ThirdStepForm onBack={onBack} onNext={onNext} data={data} />;
             default:
                 return null;
         }
-    }, [step, onNext, onBack]);
+    }, [data, currentStep, onNext, onBack]);
 
     return <>{stepForm}</>;
 }

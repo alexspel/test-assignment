@@ -1,10 +1,11 @@
 import { Flex } from '@mantine/core';
+import { CreationResult } from '../../../pages/CreatePage/model/types/CreatePageSchema';
 import ResultIcon from '../../../shared/ResultIcon/ResultIcon';
 import cls from './ResultMessage.module.scss';
 
 interface ResultMessageProps {
     title: React.ReactNode;
-    result: 'success' | 'error';
+    result: CreationResult;
 }
 
 function ResultMessage(props: ResultMessageProps) {

@@ -4,13 +4,17 @@ import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Loader from '../shared/Loader/Loader';
 import AppRouter from './providers/AppRouter/AppRouter';
+import { StoreProvider } from './providers/StoreProvider/StoreProvider';
+
 function App() {
     return (
         <MantineProvider>
             <BrowserRouter>
-                <Suspense fallback={<Loader />}>
-                    <AppRouter />
-                </Suspense>
+                <StoreProvider>
+                    <Suspense fallback={<Loader />}>
+                        <AppRouter />
+                    </Suspense>
+                </StoreProvider>
             </BrowserRouter>
         </MantineProvider>
     );

@@ -22,10 +22,20 @@ a {
     font-weight: 400;
     font-size: 12px;
 
-    &[type='submit'] {
+    &.primary {
         background: #5558fa;
+
         &:hover {
             background: rgba(85, 88, 250, 0.8);
         }
     }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
 }

@@ -1,15 +1,15 @@
 import { Flex } from '@mantine/core';
-import Step from './Step';
-import Separator from './Separator';
 import clsx from 'clsx';
-import cls from './Steps.module.scss';
+import Separator from './Separator';
+import Step from './Step';
+import cls from './Stepper.module.scss';
 
-interface StepsProps {
+interface StepperProps {
     current: number | string;
     steps: (number | string)[];
 }
 
-function Steps(props: StepsProps) {
+function Stepper(props: StepperProps) {
     const { current, steps } = props;
     const currentIndex = steps.indexOf(current);
     const stepItems = steps.map((step, stepIndex) => {
@@ -45,4 +45,4 @@ function Steps(props: StepsProps) {
     );
 }
 
-export default Steps;
+export default Stepper;

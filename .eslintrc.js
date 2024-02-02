@@ -33,5 +33,6 @@ module.exports = {
         'require-jsdoc': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/ban-types': 'off',
+        'linebreak-style': 'off',
     },
 };

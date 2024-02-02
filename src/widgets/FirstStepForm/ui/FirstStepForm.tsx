@@ -84,7 +84,7 @@ function FirstStepForm(props: FirstStepFormProps) {
                 <Button id="button-back" onClick={onBack} variant="outline" className="button">
                     Назад
                 </Button>
-                <Button id="button-next" type="submit" variant="filled" className="button">
+                <Button id="button-next" type="submit" variant="filled" className="button primary">
                     Далее
                 </Button>
             </Group>

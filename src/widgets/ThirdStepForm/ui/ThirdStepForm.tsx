@@ -30,7 +30,7 @@ function ThirdStepForm(props: ThirdStepFormProps) {
                 <Button onClick={onBack} variant="outline" className="button">
                     Назад
                 </Button>
-                <Button type="submit" variant="filled" className="button">
+                <Button type="submit" variant="filled" className="button primary">
                     Сохранить
                 </Button>
             </Group>

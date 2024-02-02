@@ -1,5 +1,5 @@
-import cls from './Separator.module.scss';
 import clsx from 'clsx';
+import cls from './Separator.module.scss';
 
 interface SeparatorProps extends React.HTMLAttributes<HTMLElement> {
     completed?: boolean;

@@ -1,8 +1,8 @@
 import { ActionIcon, Flex } from '@mantine/core';
 import { IconCheck, IconCircleFilled } from '@tabler/icons-react';
+import clsx from 'clsx';
 import { useMemo } from 'react';
 import cls from './Step.module.scss';
-import clsx from 'clsx';
 
 interface StepProps {
     active?: boolean;

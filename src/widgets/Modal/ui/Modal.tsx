@@ -1,7 +1,7 @@
+import { ActionIcon } from '@mantine/core';
+import { IconX } from '@tabler/icons-react';
 import React from 'react';
 import cls from './Modal.module.scss';
-import { IconX } from '@tabler/icons-react';
-import { ActionIcon } from '@mantine/core';
 
 interface ModalProps {
     open?: boolean;
@@ -18,7 +18,7 @@ function Modal(props: ModalProps) {
         <div className={cls.Modal}>
             <div className={cls.wrapper}>
                 <ActionIcon variant="transparent" className={cls.closeButton} onClick={onClose}>
-                    <IconX />
+                    <IconX className={cls.closeIcon} />
                 </ActionIcon>
                 <div className={cls.content}>{children}</div>
             </div>

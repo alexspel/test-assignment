@@ -2,13 +2,11 @@ import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../../app/providers/AppRouter/config';
 import { FirstStepForm } from '../../../../widgets/FirstStepForm';
-import { SecondStepForm } from '../../../../widgets/SecondStepForm';
 import { FirstStepFormValues } from '../../../../widgets/FirstStepForm/ui/FirstStepForm';
+import { SecondStepForm } from '../../../../widgets/SecondStepForm';
 import { SecondStepFormValues } from '../../../../widgets/SecondStepForm/ui/SecondStepForm';
 import { ThirdStepForm } from '../../../../widgets/ThirdStepForm';
 import { ThirdStepFormValues } from '../../../../widgets/ThirdStepForm/ui/ThirdStepForm';
-import { Button, Flex } from '@mantine/core';
-import { Modal } from '../../../../widgets/Modal';
 
 enum Steps {
     Step1 = 'step1',
@@ -24,7 +22,7 @@ function CreateForm() {
     const navigate = useNavigate();
     const [step, setStep] = useState<Steps>(Steps.Step1);
     const [data, setData] = useState<AllValues>({});
-    const [openModal, setOpenModal] = useState<boolean>(true);
+
     const updateData = useCallback(
         (values: Partial<FormValues>) => {
             setData((prev) => ({
@@ -110,37 +108,7 @@ function CreateForm() {
         }
     }, [step, onNext, onBack]);
 
-    return (
-        <>
-            {stepForm}
-            <Modal
-                open={openModal}
-                onClose={() => {
-                    setOpenModal(false);
-                }}
-            >
-                <div>Привет</div>
-                <Flex align="center" justify="flex-end">
-                    <Button
-                        variant="filled"
-                        onClick={() => {
-                            setOpenModal(false);
-                        }}
-                    >
-                        Закрыть
-                    </Button>
-                </Flex>
-            </Modal>
-            <Button
-                variant="filled"
-                onClick={() => {
-                    setOpenModal(true);
-                }}
-            >
-                open
-            </Button>
-        </>
-    );
+    return <>{stepForm}</>;
 }
 
 export default CreateForm;

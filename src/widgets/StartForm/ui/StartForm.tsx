@@ -36,7 +36,7 @@ const StartForm = () => {
                 {...form.getInputProps('email')}
             />
             <Group justify="flex-start">
-                <Button type="submit" className="button">
+                <Button type="submit" className="button primary">
                     Начать
                 </Button>
             </Group>

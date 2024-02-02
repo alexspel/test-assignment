@@ -1,4 +1,3 @@
-import { HtmlHTMLAttributes } from 'react';
 import cls from './Separator.module.scss';
 import clsx from 'clsx';
 

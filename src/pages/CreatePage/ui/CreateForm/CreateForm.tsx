@@ -7,11 +7,14 @@ import { FirstStepFormValues } from '../../../../widgets/FirstStepForm/ui/FirstS
 import { SecondStepFormValues } from '../../../../widgets/SecondStepForm/ui/SecondStepForm';
 import { ThirdStepForm } from '../../../../widgets/ThirdStepForm';
 import { ThirdStepFormValues } from '../../../../widgets/ThirdStepForm/ui/ThirdStepForm';
+import { Button, Flex } from '@mantine/core';
+import { Modal } from '../../../../widgets/Modal';
 
 enum Steps {
     Step1 = 'step1',
     Step2 = 'step2',
     Step3 = 'step3',
+    Finish = 'finish',
 }
 
 type FormValues = FirstStepFormValues | SecondStepFormValues | ThirdStepFormValues;
@@ -21,7 +24,7 @@ function CreateForm() {
     const navigate = useNavigate();
     const [step, setStep] = useState<Steps>(Steps.Step1);
     const [data, setData] = useState<AllValues>({});
-
+    const [openModal, setOpenModal] = useState<boolean>(true);
     const updateData = useCallback(
         (values: Partial<FormValues>) => {
             setData((prev) => ({
@@ -58,7 +61,7 @@ function CreateForm() {
                     setStep(Steps.Step3);
                     break;
                 case Steps.Step3:
-                    setStep(Steps.Step1);
+                    setStep(Steps.Finish);
                     break;
             }
         },
@@ -102,10 +105,42 @@ function CreateForm() {
                         }}
                     />
                 );
+            default:
+                return null;
         }
     }, [step, onNext, onBack]);
 
-    return <>{stepForm}</>;
+    return (
+        <>
+            {stepForm}
+            <Modal
+                open={openModal}
+                onClose={() => {
+                    setOpenModal(false);
+                }}
+            >
+                <div>Привет</div>
+                <Flex align="center" justify="flex-end">
+                    <Button
+                        variant="filled"
+                        onClick={() => {
+                            setOpenModal(false);
+                        }}
+                    >
+                        Закрыть
+                    </Button>
+                </Flex>
+            </Modal>
+            <Button
+                variant="filled"
+                onClick={() => {
+                    setOpenModal(true);
+                }}
+            >
+                open
+            </Button>
+        </>
+    );
 }
 
 export default CreateForm;

@@ -10,15 +10,15 @@ export type FirstStepFormValues = {
 };
 
 interface FirstStepFormProps {
-    data: FirstStepFormValues;
     onBack: () => void;
-    onNext: (values: FirstStepFormValues) => void;
+    onNext: (values: Partial<FirstStepFormValues>) => void;
+    data: Partial<FirstStepFormValues>;
 }
 
 function FirstStepForm(props: FirstStepFormProps) {
-    const { data, onBack, onNext } = props;
+    const { onBack, onNext, data } = props;
 
-    const form = useForm<FirstStepFormValues>({
+    const form = useForm<Partial<FirstStepFormValues>>({
         initialValues: data,
     });
     const combobox = useCombobox({

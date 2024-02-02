@@ -15,14 +15,15 @@ enum Steps {
 }
 
 type FormValues = FirstStepFormValues | SecondStepFormValues | ThirdStepFormValues;
+type AllValues = Partial<FirstStepFormValues & SecondStepFormValues & ThirdStepFormValues>;
 
 function CreateForm() {
     const navigate = useNavigate();
     const [step, setStep] = useState<Steps>(Steps.Step1);
-    const [data, setData] = useState({});
+    const [data, setData] = useState<AllValues>({});
 
     const updateData = useCallback(
-        (values: FormValues) => {
+        (values: Partial<FormValues>) => {
             setData((prev) => ({
                 ...prev,
                 ...values,
@@ -47,7 +48,7 @@ function CreateForm() {
     }, [step, navigate]);
 
     const onNext = useCallback(
-        (values: FormValues) => {
+        (values: Partial<FormValues>) => {
             updateData(values);
             switch (step) {
                 case Steps.Step1:
@@ -64,24 +65,47 @@ function CreateForm() {
         [step, updateData],
     );
 
-    const form = useMemo(() => {
+    const stepForm = useMemo(() => {
         switch (step) {
             case Steps.Step1:
                 return (
                     <FirstStepForm
-                        data={data as FirstStepFormValues}
                         onBack={onBack}
                         onNext={onNext}
+                        data={{
+                            nickname: data?.nickname,
+                            name: data?.name,
+                            surname: data?.surname,
+                            sex: data?.sex,
+                        }}
                     />
                 );
             case Steps.Step2:
-                return <SecondStepForm onBack={onBack} onNext={onNext} />;
+                return (
+                    <SecondStepForm
+                        onBack={onBack}
+                        onNext={onNext}
+                        data={{
+                            advantages: data?.advantages,
+                            checkbox: data?.checkbox,
+                            radio: data?.radio,
+                        }}
+                    />
+                );
             case Steps.Step3:
-                return <ThirdStepForm onBack={onBack} onNext={onNext} />;
+                return (
+                    <ThirdStepForm
+                        onBack={onBack}
+                        onNext={onNext}
+                        data={{
+                            about: data?.about,
+                        }}
+                    />
+                );
         }
     }, [step, onNext, onBack]);
 
-    return <>{form}</>;
+    return <>{stepForm}</>;
 }
 
 export default CreateForm;

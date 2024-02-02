@@ -13,16 +13,17 @@ export interface SecondStepFormValues {
 interface SecondStepFormProps {
     onBack: () => void;
     onNext: (values: SecondStepFormValues) => void;
+    data: Partial<SecondStepFormValues>;
 }
 
 function SecondStepForm(props: SecondStepFormProps) {
-    const { onBack, onNext } = props;
+    const { onBack, onNext, data } = props;
 
     const form = useForm<SecondStepFormValues>({
         initialValues: {
-            advantages: [''],
-            checkbox: [],
-            radio: '',
+            advantages: data?.advantages ?? [],
+            checkbox: data?.checkbox ?? [],
+            radio: data?.radio ?? '',
         },
     });
 

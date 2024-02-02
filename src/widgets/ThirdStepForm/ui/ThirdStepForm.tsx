@@ -1,4 +1,4 @@
-import { Button, Group, Text, Textarea } from '@mantine/core';
+import { Button, Group, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 export interface ThirdStepFormValues {
@@ -7,16 +7,15 @@ export interface ThirdStepFormValues {
 
 interface ThirdStepFormProps {
     onBack: () => void;
-    onNext: (values: ThirdStepFormValues) => void;
+    onNext: (values: Partial<ThirdStepFormValues>) => void;
+    data: Partial<ThirdStepFormValues>;
 }
 
 function ThirdStepForm(props: ThirdStepFormProps) {
-    const { onBack, onNext } = props;
+    const { onBack, onNext, data } = props;
 
-    const form = useForm<ThirdStepFormValues>({
-        initialValues: {
-            about: '',
-        },
+    const form = useForm<Partial<ThirdStepFormValues>>({
+        initialValues: data,
     });
 
     return (

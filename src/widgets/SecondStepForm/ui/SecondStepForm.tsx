@@ -32,18 +32,24 @@ function SecondStepForm(props: SecondStepFormProps) {
 
     const advantages = form.values.advantages.map((_, index) => (
         <Group key={index}>
-            <TextInput
-                id={`field-advantages-${index + 1}`}
-                placeholder="Advantage"
-                {...form.getInputProps(`advantages.${index}`)}
-            />
-            <ActionIcon
-                disabled={form.values.advantages.length <= 1}
-                variant="transparent"
-                onClick={() => form.removeListItem(`advantages`, index)}
-            >
-                <IconTrashFilled className={cls.trashIcon} />
-            </ActionIcon>
+            <Flex align="flex-end" gap="md">
+                <TextInput
+                    label={index === 0 && 'Advantages'}
+                    id={`field-advantages-${index + 1}`}
+                    placeholder="Advantage"
+                    {...form.getInputProps(`advantages.${index}`)}
+                />
+                <ActionIcon
+                    disabled={form.values.advantages.length <= 1}
+                    variant="transparent"
+                    onClick={() => form.removeListItem(`advantages`, index)}
+                    style={{
+                        marginBottom: 4,
+                    }}
+                >
+                    <IconTrashFilled className={cls.trashIcon} />
+                </ActionIcon>
+            </Flex>
         </Group>
     ));
 

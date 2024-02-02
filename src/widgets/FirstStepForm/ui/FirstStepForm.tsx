@@ -69,6 +69,8 @@ function FirstStepForm(props: FirstStepFormProps) {
                         <TextInput
                             pointer
                             readOnly
+                            label="Sex"
+                            placeholder="Sex"
                             rightSection={<IconChevronDown cursor="pointer" />}
                             {...form.getInputProps('sex')}
                         />

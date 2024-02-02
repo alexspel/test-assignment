@@ -29,6 +29,7 @@ module.exports = {
     plugins: ['react', '@typescript-eslint', 'prettier'],
     rules: {
         'react/react-in-jsx-scope': 'off',
+        'react/prop-types': 'off',
         'require-jsdoc': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/ban-types': 'off',

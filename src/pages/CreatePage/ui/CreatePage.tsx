@@ -1,4 +1,4 @@
-import Page from '../../../shared/Page/Page'; 
+import Page from '../../../shared/Page/Page';
 import CreateForm from './CreateForm/CreateForm';
 
 function CreatePage() {

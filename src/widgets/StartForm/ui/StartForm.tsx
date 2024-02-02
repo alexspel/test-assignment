@@ -3,13 +3,18 @@ import { useForm } from '@mantine/form';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../app/providers/AppRouter/config';
 
+export type StartForm = {
+    phone: string;
+    email: string;
+};
+
 const StartForm = () => {
     const navigate = useNavigate();
 
-    const form = useForm({
+    const form = useForm<StartForm>({
         initialValues: {
-            phone: undefined,
-            email: undefined,
+            phone: '',
+            email: '',
         },
     });
 

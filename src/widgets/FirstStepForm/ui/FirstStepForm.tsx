@@ -1,12 +1,17 @@
 import { Button, Combobox, Group, TextInput, useCombobox } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { IconChevronDown } from '@tabler/icons-react';
+import * as yup from 'yup';
 
+export enum Gender {
+    Man = 'man',
+    Woman = 'woman',
+}
 export type FirstStepFormValues = {
     nickname: string;
     name: string;
     surname: string;
-    sex: string;
+    sex: Gender;
 };
 
 interface FirstStepFormProps {
@@ -15,11 +20,39 @@ interface FirstStepFormProps {
     data: Partial<FirstStepFormValues>;
 }
 
+const schema = yup.object().shape({
+    nickname: yup
+        .string()
+        .min(1)
+        .max(39)
+        .required('nickname is required')
+        .matches(/^([A-Za-z0-9]*)$/gi, 'nickname can only contain latin letters and digits.'),
+    name: yup
+        .string()
+        .min(1)
+        .max(39)
+        .required('name is required')
+        .matches(/^([A-Za-z]*)$/gi, 'name can only contain latin letters.'),
+    surname: yup
+        .string()
+        .min(1)
+        .max(39)
+        .required('surname is required')
+        .matches(/^([A-Za-z]*)$/gi, 'surname can only contain latin letters.'),
+    sex: yup.string().oneOf([Gender.Man, Gender.Woman]).required(),
+});
+
 function FirstStepForm(props: FirstStepFormProps) {
     const { onBack, onNext, data } = props;
 
     const form = useForm<Partial<FirstStepFormValues>>({
-        initialValues: data,
+        initialValues: {
+            nickname: data?.nickname ?? '',
+            name: data?.name ?? '',
+            surname: data?.surname ?? '',
+            sex: data?.sex,
+        },
+        validate: yupResolver(schema),
     });
 
     const combobox = useCombobox({
@@ -27,7 +60,7 @@ function FirstStepForm(props: FirstStepFormProps) {
         onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
     });
 
-    const options = ['man', 'woman'].map((item) => (
+    const options = [Gender.Man, Gender.Woman].map((item) => (
         <Combobox.Option
             key={`field-sex-option-${item}`}
             id={`field-sex-option-${item}`}
@@ -61,7 +94,7 @@ function FirstStepForm(props: FirstStepFormProps) {
             <Combobox
                 store={combobox}
                 onOptionSubmit={(value: string) => {
-                    form.setValues({ sex: value });
+                    form.setValues({ sex: value as Gender });
                     combobox.toggleDropdown();
                 }}
             >

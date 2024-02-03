@@ -6,8 +6,7 @@ interface ResultIconProps {
 }
 
 function ResultIcon({ result }: ResultIconProps) {
-    const icon =
-        result === 'success' ? <IconCheck className={cls.icon} /> : <IconX className={cls.icon} />;
+    const icon = result === 'success' ? <IconCheck className={cls.icon} /> : <IconX className={cls.icon} />;
     return (
         <div className={cls.ResultIcon}>
             <div className={cls[result]}>{icon}</div>

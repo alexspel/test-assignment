@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ActionIcon } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 import React from 'react';

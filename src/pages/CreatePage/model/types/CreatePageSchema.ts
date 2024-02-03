@@ -8,4 +8,5 @@ export interface CreatePageSchema {
     steps: FormStep[];
     showResult: boolean;
     result?: CreationResult;
+    isProcessingData: boolean;
 }

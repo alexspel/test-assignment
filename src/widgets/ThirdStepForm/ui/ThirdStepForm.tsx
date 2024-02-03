@@ -1,4 +1,6 @@
-import { Button, Flex, Group, Textarea } from '@mantine/core';
+import {
+    Button, Flex, Group, Textarea,
+} from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
 import * as yup from 'yup';
 
@@ -11,6 +13,7 @@ interface ThirdStepFormProps {
     onNext: (values: Partial<ThirdStepFormValues>) => void;
     data: Partial<ThirdStepFormValues>;
 }
+
 const schema = yup.object().shape({
     about: yup.string().max(200).required('about is required'),
 });
@@ -35,7 +38,9 @@ function ThirdStepForm(props: ThirdStepFormProps) {
                 rows={10}
                 {...form.getInputProps('about')}
             />
-            <Flex justify={'flex-end'}>{form?.values?.about?.replace(/\s/gi, '').length}</Flex>
+            <Flex justify="flex-end">
+                {form?.values?.about?.replace(/\s/gi, '').length}
+            </Flex>
             <Group justify="space-between">
                 <Button onClick={onBack} variant="outline" className="button">
                     Назад

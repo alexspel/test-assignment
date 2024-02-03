@@ -1,5 +1,3 @@
-const Loader = () => {
-    return <div>Загрузка</div>;
-};
+const Loader = () => <div>Загрузка</div>;
 
 export default Loader;

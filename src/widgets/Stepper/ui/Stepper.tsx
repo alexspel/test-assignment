@@ -14,39 +14,37 @@ function Stepper(props: StepperProps) {
     const { current, steps } = props;
     const currentIndex = steps.indexOf(current);
     const stepItems = useMemo(
-        () =>
-            steps.map((step, stepIndex) => {
-                const key = `${currentIndex}-${step}-${stepIndex}`;
-                const stepProps = {
-                    key,
-                    completed: stepIndex < currentIndex,
-                    active: stepIndex === currentIndex,
-                };
-                return (
-                    <>
-                        {!stepProps.active && !stepProps.completed && (
-                            <Separator key={`cs-${key}`} />
-                        )}
-                        <Step {...stepProps} />
-                        {!stepProps.active && stepProps.completed && (
-                            <Separator key={`ucs-${key}`} completed />
-                        )}
-                    </>
-                );
-            }),
+        () => steps.map((step, stepIndex) => {
+            const key = `${currentIndex}-${step}-${stepIndex}`;
+            const stepProps = {
+                key,
+                completed: stepIndex < currentIndex,
+                active: stepIndex === currentIndex,
+            };
+            return (
+                <>
+                    {!stepProps.active && !stepProps.completed && (
+                        <Separator key={`cs-${key}`} />
+                    )}
+                    <Step {...stepProps} />
+                    {!stepProps.active && stepProps.completed && (
+                        <Separator key={`ucs-${key}`} completed />
+                    )}
+                </>
+            );
+        }),
         [currentIndex, steps],
     );
 
     const labelItems = useMemo(
-        () =>
-            steps.map((step, stepIndex) => (
-                <span
-                    key={`label-${step}`}
-                    className={clsx(cls.label, stepIndex <= currentIndex && cls.completed)}
-                >
-                    {step}
-                </span>
-            )),
+        () => steps.map((step, stepIndex) => (
+            <span
+                key={`label-${step}`}
+                className={clsx(cls.label, stepIndex <= currentIndex && cls.completed)}
+            >
+                {step}
+            </span>
+        )),
         [steps, currentIndex],
     );
 

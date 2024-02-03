@@ -1,4 +1,7 @@
-import { ActionIcon, Button, Checkbox, Flex, Group, Radio, Text, TextInput } from '@mantine/core';
+/* eslint-disable react/no-array-index-key */
+import {
+    ActionIcon, Button, Checkbox, Flex, Group, Radio, Text, TextInput,
+} from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
 import { IconTrashFilled } from '@tabler/icons-react';
 import { useCallback } from 'react';
@@ -22,9 +25,11 @@ const schema = yup.object().shape({
         .array()
         .min(1, 'at least 1')
         .required('advantages is required')
-        .test('Not empty', 'advantage(s) can`t be empty', function (item: string[]) {
-            return item.filter((x) => x.trim() === '').length === 0;
-        }),
+        .test(
+            'Not empty',
+            'advantage(s) can`t be empty',
+            (item: string[]) => item.filter((x) => x.trim() === '').length === 0,
+        ),
     checkbox: yup.array().min(1, 'at least 1').required('checkbox group is required'),
     radio: yup.number().required('Radio group is required'),
 });
@@ -45,37 +50,35 @@ function SecondStepForm(props: SecondStepFormProps) {
         form.insertListItem('advantages', '');
     }, [form]);
 
-    const advantages = form?.values?.advantages?.map((_, index) => {
-        return (
-            <Group key={index}>
-                <Flex align="flex-end" gap="md">
-                    <TextInput
-                        id={`field-advantages-${index + 1}`}
-                        label={index === 0 && 'Advantages'}
-                        placeholder="Advantage"
-                        style={{ flex: 1 }}
-                        {...form.getInputProps(`advantages.${index}`)}
-                    />
-                    <ActionIcon
-                        disabled={
-                            !form?.values?.advantages || form?.values?.advantages?.length <= 1
-                        }
-                        variant="transparent"
-                        onClick={() => form.removeListItem(`advantages`, index)}
-                        style={{
-                            marginBottom: 4,
-                        }}
-                    >
-                        <IconTrashFilled className={cls.trashIcon} />
-                    </ActionIcon>
-                </Flex>
-            </Group>
-        );
-    });
+    const advantages = form?.values?.advantages?.map((_, index) => (
+        <Group key={`a-${index}`}>
+            <Flex align="flex-end" gap="md">
+                <TextInput
+                    id={`field-advantages-${index + 1}`}
+                    label={index === 0 && 'Advantages'}
+                    placeholder="Advantage"
+                    style={{ flex: 1 }}
+                    {...form.getInputProps(`advantages.${index}`)}
+                />
+                <ActionIcon
+                    disabled={
+                        !form?.values?.advantages || form?.values?.advantages?.length <= 1
+                    }
+                    variant="transparent"
+                    onClick={() => form.removeListItem('advantages', index)}
+                    style={{
+                        marginBottom: 4,
+                    }}
+                >
+                    <IconTrashFilled className={cls.trashIcon} />
+                </ActionIcon>
+            </Flex>
+        </Group>
+    ));
 
     return (
         <form className="form" onSubmit={form.onSubmit((values) => onNext?.(values))}>
-            {!advantages?.length && <label style={{ fontSize: 14 }}>Advantages</label>}
+            {!advantages?.length && <span style={{ fontSize: 14 }}>Advantages</span>}
             {advantages}
             <Text size="xs" variant="text" c="red">
                 {form?.errors?.advantages}

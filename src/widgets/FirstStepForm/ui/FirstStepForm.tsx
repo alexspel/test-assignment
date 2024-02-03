@@ -1,4 +1,7 @@
-import { Button, Combobox, Group, TextInput, useCombobox } from '@mantine/core';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import {
+    Button, Combobox, Group, TextInput, useCombobox,
+} from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
 import { IconChevronDown } from '@tabler/icons-react';
 import * as yup from 'yup';
@@ -7,6 +10,7 @@ export enum Gender {
     Man = 'man',
     Woman = 'woman',
 }
+
 export type FirstStepFormValues = {
     nickname: string;
     name: string;
@@ -65,7 +69,7 @@ function FirstStepForm(props: FirstStepFormProps) {
             key={`field-sex-option-${item}`}
             id={`field-sex-option-${item}`}
             value={item}
-            active={true}
+            active
         >
             <span>{item}</span>
         </Combobox.Option>

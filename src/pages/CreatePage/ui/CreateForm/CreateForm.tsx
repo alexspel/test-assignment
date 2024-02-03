@@ -17,8 +17,6 @@ function CreateForm() {
     const data = useSelector(getData);
     const currentStep = useSelector(getStep);
 
-    // const onFinish = useCallback(() => , [data, dispatch]);
-
     const onBack = useCallback(() => {
         const prevStep = getPrevStep(currentStep);
         if (prevStep) {

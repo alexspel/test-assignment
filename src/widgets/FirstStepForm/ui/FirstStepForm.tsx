@@ -5,11 +5,7 @@ import {
 import { useForm, yupResolver } from '@mantine/form';
 import { IconChevronDown } from '@tabler/icons-react';
 import * as yup from 'yup';
-
-export enum Gender {
-    Man = 'man',
-    Woman = 'woman',
-}
+import { Gender } from '../../../shared/types';
 
 export type FirstStepFormValues = {
     nickname: string;

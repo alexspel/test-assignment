@@ -1,23 +1,23 @@
-import { MantineProvider } from '@mantine/core';
+import { AppShell, Loader, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Loader from '../shared/Loader/Loader';
-import AppRouter from './providers/AppRouter/AppRouter';
+import { AppRouter } from './providers/AppRouter/AppRouter';
 import { StoreProvider } from './providers/StoreProvider/StoreProvider';
+import { theme } from './styles/theme';
 
-function App() {
-    return (
-        <MantineProvider>
-            <BrowserRouter>
-                <StoreProvider>
-                    <Suspense fallback={<Loader />}>
-                        <AppRouter />
-                    </Suspense>
-                </StoreProvider>
-            </BrowserRouter>
-        </MantineProvider>
-    );
-}
-
-export default App;
+export const App = () => (
+    <MantineProvider theme={theme}>
+        <BrowserRouter>
+            <StoreProvider>
+                <Suspense fallback={<Loader />}>
+                    <AppShell>
+                        <AppShell.Main>
+                            <AppRouter />
+                        </AppShell.Main>
+                    </AppShell>
+                </Suspense>
+            </StoreProvider>
+        </BrowserRouter>
+    </MantineProvider>
+);

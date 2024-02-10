@@ -1,5 +1,1 @@
-import MainPage from './ui/MainPage';
-
-export { MainPageAsync } from './MainPage.async';
-export { MainPage };
-
+export { MainPage } from './ui/MainPage';

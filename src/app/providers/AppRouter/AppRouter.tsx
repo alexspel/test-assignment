@@ -1,9 +1,9 @@
+import { Loader } from '@mantine/core';
 import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Loader from '../../../shared/Loader/Loader';
 import { RouteConfig } from './config';
 
-const AppRouter = () => (
+export const AppRouter = () => (
     <Routes>
         {Object.values(RouteConfig).map(({ path, element }) => (
             <Route
@@ -14,5 +14,3 @@ const AppRouter = () => (
         ))}
     </Routes>
 );
-
-export default AppRouter;

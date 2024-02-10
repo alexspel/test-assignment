@@ -1,15 +1,10 @@
-import { user } from '../../../app/data';
-import Divider from '../../../shared/Divider/Divider';
-import Page from '../../../shared/Page/Page';
-import { StartForm } from '../../../widgets/StartForm';
-import { Userbar } from '../../../widgets/Userbar';
+import { user } from 'app/data';
+import { LoginForm } from 'features/LoginForm';
+import { Userbar } from 'widgets/Userbar/Userbar';
 
-const MainPage = () => (
-    <Page>
+export const MainPage = () => (
+    <>
         <Userbar user={user} />
-        <Divider />
-        <StartForm />
-    </Page>
+        <LoginForm />
+    </>
 );
-
-export default MainPage;

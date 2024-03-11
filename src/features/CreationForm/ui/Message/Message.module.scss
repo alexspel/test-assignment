@@ -1,0 +1,51 @@
+.message {
+    gap: 48px;
+    padding: 0 10px;
+    margin-top: 24px;
+}
+
+%circle {
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    &.success {
+        background: #05AE71;
+    }
+
+    &.error {
+        background: #E84E58;
+    }
+}
+
+.iconContainer {
+    @extend %circle;
+
+    height: 80px;
+    width: 80px;
+    background: #E84E5826;
+
+}
+
+.icon {
+    height: 40px;
+    width: 40px;
+    stroke: 4;
+    color: #fff;
+    padding: 5px;
+}
+
+
+.actionContainer {
+    width: 100%;
+
+    &.success {
+        justify-content: center;
+    }
+
+    &.error {
+        justify-content: flex-end;
+    }
+}
